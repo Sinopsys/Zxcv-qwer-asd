@@ -1,0 +1,3 @@
+[submodule "shopdiscounts"]
+	path = shopdiscounts
+	url = https://git.heroku.com/shopdiscounts.git
