@@ -3,3 +3,5 @@
 
 shopdiscounts/ это код для вебсервера
 чтобы его получить, нужно выполнить `cd shopdiscounts && git submodule update --init`
+
+ShopDiscounts/ это код приложения
