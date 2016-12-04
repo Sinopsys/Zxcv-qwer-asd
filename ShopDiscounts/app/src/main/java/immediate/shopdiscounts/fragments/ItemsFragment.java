@@ -1,4 +1,4 @@
-package immediate.shopdiscounts;
+package immediate.shopdiscounts.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,6 +15,9 @@ import android.widget.ProgressBar;
 
 import java.util.List;
 
+import immediate.shopdiscounts.EmptyRecyclerView;
+import immediate.shopdiscounts.MainActivity;
+import immediate.shopdiscounts.R;
 import immediate.shopdiscounts.adapters.ItemListAdapter;
 import immediate.shopdiscounts.api.Interactor;
 import immediate.shopdiscounts.api.Item;
@@ -84,6 +87,8 @@ public class ItemsFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        ((MainActivity) getActivity()).fab.setVisibility(View.INVISIBLE);
 
         try {
             List<Item> list = new Interactor().execute().get();
