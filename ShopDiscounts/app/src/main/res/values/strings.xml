@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">ShopDiscounts</string>
+    <string name="title_activity_main">Скидки Дикси</string>
+    <string name="section_format">Hello World from section: %1$d</string>
 </resources>

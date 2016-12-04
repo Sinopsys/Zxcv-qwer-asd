@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/image"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:minHeight="64dp"
+        android:minWidth="64dp"
+        android:background="@color/colorPrimary"/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="NAME"
+        android:id="@+id/name"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:layout_alignTop="@+id/image"
+        android:layout_toRightOf="@id/image"
+        style="@style/TextAppearance.AppCompat.Headline"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/category"
+        android:text="CATEGORY"
+        android:layout_toRightOf="@id/image"
+        android:layout_below="@id/name"
+        style="@style/Base.TextAppearance.AppCompat.Subhead"
+        android:layout_marginTop="8dp"
+        android:layout_alignLeft="@id/name"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/category"
+        android:layout_alignBottom="@id/image"
+        android:layout_alignLeft="@id/category"
+        android:layout_toRightOf="@id/image"
+        android:layout_marginTop="8dp"
+        android:text="OLDSPICE NEWPRICE"
+        android:id="@+id/price"
+        />
+
+
+
+
+</RelativeLayout>

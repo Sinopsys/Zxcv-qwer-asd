@@ -12,11 +12,9 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by vmax on 03.12.16.
- */
 
 public class Interactor extends AsyncTask<Void, Void, List<Item>> {
+
     @Override
     protected List<Item> doInBackground(Void... voids) {
         StringBuilder sb = new StringBuilder();

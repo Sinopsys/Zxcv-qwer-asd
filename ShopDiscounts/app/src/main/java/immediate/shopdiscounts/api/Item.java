@@ -19,11 +19,11 @@ public class Item {
         try {
             item.name = jsonObject.getString("name");
             item.category = jsonObject.getString("category");
-            item.imageURL = jsonObject.getString("img url");
+            item.imageURL = jsonObject.getString("img_url");
             item.date = jsonObject.getString("date");
             item.condition = jsonObject.getString("condition");
-            item.oldPrice = Float.parseFloat(jsonObject.getString("old price"));
-            item.newPrice = Float.parseFloat(jsonObject.getString("new price"));
+            item.oldPrice = Float.parseFloat(jsonObject.getString("old_price"));
+            item.newPrice = Float.parseFloat(jsonObject.getString("new_price"));
             item.discount = jsonObject.getString("discount");
         } catch (JSONException e) {
             e.printStackTrace();
