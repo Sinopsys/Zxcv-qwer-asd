@@ -25,23 +25,28 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemVi
     private final ArrayList<Item> dataCopy;
     private Context mContext;
 
+    public List<Item> itemsMatchingQuery(String query) {
+        ArrayList<Item> queryResult = new ArrayList<>();
+        query = query.toLowerCase();
+
+        if (!query.isEmpty()) {
+            for (Item item : dataCopy) {
+                if (item.name.toLowerCase().contains(query)) {
+                    queryResult.add(item);
+                }
+            }
+        }
+
+        return queryResult;
+    }
 
     public void filter(String query) {
         if (query.isEmpty()) {
             items.clear();
             items.addAll(dataCopy);
         } else {
-            ArrayList<Item> queryResult = new ArrayList<>();
-            query = query.toLowerCase();
-
-            for (Item item : dataCopy) {
-                if (item.name.toLowerCase().contains(query)) {
-                    queryResult.add(item);
-                }
-            }
-
             items.clear();
-            items.addAll(queryResult);
+            items.addAll(itemsMatchingQuery(query));
         }
         notifyDataSetChanged();
     }

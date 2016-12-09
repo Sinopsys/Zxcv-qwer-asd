@@ -4,8 +4,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import immediate.shopdiscounts.ItemsFragment;
-import immediate.shopdiscounts.MainActivity;
+import immediate.shopdiscounts.fragments.ItemsFragment;
+import immediate.shopdiscounts.fragments.ShopCartFragment;
 
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
@@ -19,7 +19,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
             return ItemsFragment.newInstance();
         }
         else if (position == 1) {
-            return MainActivity.PlaceholderFragment.newInstance(position + 1);
+            return ShopCartFragment.newInstance();
         }
 
         return null;
@@ -36,7 +36,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
             case 0:
                 return "Продукты";
             case 1:
-                return "Корзина (ещё не готово)";
+                return "Корзина";
         }
         return null;
     }

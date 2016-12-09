@@ -13,21 +13,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
-import java.util.List;
-
 import immediate.shopdiscounts.EmptyRecyclerView;
 import immediate.shopdiscounts.MainActivity;
 import immediate.shopdiscounts.R;
 import immediate.shopdiscounts.adapters.ItemListAdapter;
 import immediate.shopdiscounts.api.Interactor;
-import immediate.shopdiscounts.api.Item;
 
 
 public class ItemsFragment extends Fragment {
     public ItemsFragment() {
     }
 
-    ItemListAdapter adapter;
     EmptyRecyclerView itemList;
 
     public static Fragment newInstance() {
@@ -55,13 +51,13 @@ public class ItemsFragment extends Fragment {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                adapter.filter(query);
+                ((MainActivity) getActivity()).adapter.filter(query);
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                adapter.filter(newText);
+                ((MainActivity) getActivity()).adapter.filter(newText);
                 return false;
             }
         });
@@ -76,9 +72,7 @@ public class ItemsFragment extends Fragment {
         itemList = (EmptyRecyclerView) rootView.findViewById(R.id.item_list);
         ProgressBar progress = (ProgressBar) rootView.findViewById(R.id.progress);
 
-        adapter = new ItemListAdapter(getContext());
         itemList.setLayoutManager(new LinearLayoutManager(getContext()));
-        itemList.setAdapter(adapter);
         itemList.setEmptyView(progress);
 
         return rootView;
@@ -88,11 +82,12 @@ public class ItemsFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        ((MainActivity) getActivity()).fab.setVisibility(View.INVISIBLE);
+        ((MainActivity) getActivity()).adapter = new ItemListAdapter(getContext());
+        itemList.setAdapter(((MainActivity) getActivity()).adapter);
+
 
         try {
-            List<Item> list = new Interactor().execute().get();
-            adapter.addAll(list);
+            new Interactor((MainActivity)getActivity()).execute();
         } catch (Exception e) {
             e.printStackTrace();
         }

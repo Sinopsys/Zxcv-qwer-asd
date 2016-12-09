@@ -12,8 +12,17 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
+import immediate.shopdiscounts.MainActivity;
+
 
 public class Interactor extends AsyncTask<Void, Void, List<Item>> {
+
+    private MainActivity mMainActivity;
+
+    public Interactor(MainActivity mainActivity)
+    {
+        mMainActivity = mainActivity;
+    }
 
     @Override
     protected List<Item> doInBackground(Void... voids) {
@@ -51,5 +60,10 @@ public class Interactor extends AsyncTask<Void, Void, List<Item>> {
         }
 
         return items;
+    }
+
+    @Override
+    protected void onPostExecute(List<Item> items) {
+        mMainActivity.adapter.addAll(items);
     }
 }
