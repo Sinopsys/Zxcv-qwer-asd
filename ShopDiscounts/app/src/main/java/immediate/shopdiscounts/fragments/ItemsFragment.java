@@ -82,7 +82,9 @@ public class ItemsFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        ((MainActivity) getActivity()).adapter = new ItemListAdapter(getContext());
+        ((MainActivity) getActivity()).adapter = new ItemListAdapter(
+                (MainActivity) getActivity()
+        );
         itemList.setAdapter(((MainActivity) getActivity()).adapter);
 
 

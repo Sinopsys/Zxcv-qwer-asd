@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import immediate.shopdiscounts.EmptyRecyclerView;
 import immediate.shopdiscounts.MainActivity;
@@ -19,22 +18,20 @@ import immediate.shopdiscounts.R;
 import immediate.shopdiscounts.adapters.ShoppingCartAdapter;
 
 
-public class ShopCartFragment extends Fragment{
+public class GroceryListFragment extends Fragment{
 
-    public ShopCartFragment(){
+    public GroceryListFragment(){
     }
 
     EmptyRecyclerView shoppingCart;
     TextView emptyCartHint;
 
-    public static ShopCartFragment newInstance() {
-        return new ShopCartFragment();
+    public static GroceryListFragment newInstance() {
+        return new GroceryListFragment();
     }
 
 
     public void onFabClicked () {
-        Toast.makeText(getContext(), "you clicked a fab in second fragment", Toast.LENGTH_SHORT).show();
-
         final EditText text = new EditText(getContext());
 
         new AlertDialog.Builder(getContext())
@@ -54,7 +51,7 @@ public class ShopCartFragment extends Fragment{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_shopcart, container, false);
+        View v = inflater.inflate(R.layout.fragment_grocerylist, container, false);
         shoppingCart = (EmptyRecyclerView) v.findViewById(R.id.shoppingCart);
         emptyCartHint = (TextView) v.findViewById(R.id.emptyLabel);
 

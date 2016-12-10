@@ -9,7 +9,7 @@ import android.view.View;
 
 import immediate.shopdiscounts.adapters.ItemListAdapter;
 import immediate.shopdiscounts.adapters.SectionsPagerAdapter;
-import immediate.shopdiscounts.fragments.ShopCartFragment;
+import immediate.shopdiscounts.fragments.GroceryListFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -17,6 +17,8 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager mViewPager;
     public FloatingActionButton fab;
     public ItemListAdapter adapter;
+
+    public ItemListAdapter shoppingCartAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,10 +35,10 @@ public class MainActivity extends AppCompatActivity {
         mViewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
-                if (position == 0) {
-                    fab.hide();
-                } else if (position == 1) {
+                if (position == 1) {
                     fab.show();
+                } else {
+                    fab.hide();
                 }
             }
         });
@@ -45,11 +47,13 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((ShopCartFragment)(getSupportFragmentManager().findFragmentById(R.id.container))).onFabClicked();
+                ((GroceryListFragment)mSectionsPagerAdapter.getCurrentFragment()).onFabClicked();
             }
         });
 
         fab.hide(); // hide FAB initially
+
+        shoppingCartAdapter = new ItemListAdapter(this);
     }
 
 }

@@ -1,6 +1,5 @@
 package immediate.shopdiscounts.adapters;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.text.Spanned;
@@ -15,6 +14,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
+import immediate.shopdiscounts.MainActivity;
 import immediate.shopdiscounts.R;
 import immediate.shopdiscounts.api.Item;
 
@@ -23,7 +23,7 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemVi
 
     private ArrayList<Item> items;
     private final ArrayList<Item> dataCopy;
-    private Context mContext;
+    private MainActivity mContext;
 
     public List<Item> itemsMatchingQuery(String query) {
         ArrayList<Item> queryResult = new ArrayList<>();
@@ -40,6 +40,23 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemVi
         return queryResult;
     }
 
+    public float totalSumNew() {
+        float sum = 0;
+        for (Item i : items) {
+            sum += i.newPrice;
+        }
+        return sum;
+    }
+
+    public float totalSumOld() {
+        float sum = 0;
+        for (Item i : items) {
+            sum += i.oldPrice;
+        }
+        return sum;
+    }
+
+
     public void filter(String query) {
         if (query.isEmpty()) {
             items.clear();
@@ -51,12 +68,20 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemVi
         notifyDataSetChanged();
     }
 
-    public ItemListAdapter(Context ctx)
+    public ItemListAdapter(MainActivity ctx)
     {
         items = new ArrayList<>();
         dataCopy = new ArrayList<>();
         mContext = ctx;
     }
+
+
+    public void add(Item newItem) {
+        items.add(newItem);
+        notifyItemRangeInserted(items.size() - 1, 1);
+        dataCopy.add(newItem);
+    }
+
 
     public void addAll(List<Item> newItems) {
         int oldSz = items.size();
@@ -66,6 +91,11 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemVi
         notifyItemRangeInserted(0, items.size());
 
         dataCopy.addAll(newItems);
+    }
+
+    public void removeAt(int adapterPosition) {
+        items.remove(adapterPosition);
+        notifyItemRemoved(adapterPosition);
     }
 
 
@@ -78,7 +108,7 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemVi
 
     @Override
     public void onBindViewHolder(ItemViewHolder holder, int position) {
-        Item item = items.get(position);
+        final Item item = items.get(position);
 
         holder.name.setText(item.name);
         holder.category.setText(item.category);
@@ -89,6 +119,14 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemVi
         Spanned s = Html.fromHtml(String.format("<font color='red'><s>%.2f</s> &#8381;</font> <big><big><font color='black'>%.2f &#8381;</font></big></big>", item.oldPrice, item.newPrice));
 
         holder.price.setText(s);
+
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                mContext.shoppingCartAdapter.add(item);
+                return true;
+            }
+        });
     }
 
     @Override
