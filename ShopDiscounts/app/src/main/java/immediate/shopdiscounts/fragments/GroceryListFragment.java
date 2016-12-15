@@ -12,10 +12,14 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import immediate.shopdiscounts.EmptyRecyclerView;
 import immediate.shopdiscounts.MainActivity;
 import immediate.shopdiscounts.R;
 import immediate.shopdiscounts.adapters.ShoppingCartAdapter;
+
+import static immediate.shopdiscounts.MainActivity.GROCERY_LIST_ITEMS_KEY;
 
 
 public class GroceryListFragment extends Fragment{
@@ -25,6 +29,14 @@ public class GroceryListFragment extends Fragment{
 
     EmptyRecyclerView shoppingCart;
     TextView emptyCartHint;
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        ArrayList<String> lst = ((ShoppingCartAdapter)shoppingCart.getAdapter()).getDataCopy();
+        outState.putSerializable(GROCERY_LIST_ITEMS_KEY, lst);
+    }
 
     public static GroceryListFragment newInstance() {
         return new GroceryListFragment();
@@ -59,6 +71,12 @@ public class GroceryListFragment extends Fragment{
         shoppingCart.setEmptyView(emptyCartHint);
         shoppingCart.setAdapter(new ShoppingCartAdapter((MainActivity)getActivity()));
 
+        if (savedInstanceState != null && savedInstanceState.containsKey(GROCERY_LIST_ITEMS_KEY))
+        {
+            @SuppressWarnings("unchecked")
+            ArrayList<String> lst = (ArrayList<String>) savedInstanceState.getSerializable(GROCERY_LIST_ITEMS_KEY);
+            ((ShoppingCartAdapter)shoppingCart.getAdapter()).addAll(lst);
+        }
         return v;
     }
 

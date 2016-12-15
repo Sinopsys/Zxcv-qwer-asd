@@ -40,6 +40,14 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemVi
         return queryResult;
     }
 
+    public ArrayList<Item> getDataCopy ()
+    {
+        @SuppressWarnings("unchecked")
+        ArrayList<Item> dataCopyClone = (ArrayList<Item>) dataCopy.clone();
+
+        return dataCopyClone;
+    }
+
     public float totalSumNew() {
         float sum = 0;
         for (Item i : items) {

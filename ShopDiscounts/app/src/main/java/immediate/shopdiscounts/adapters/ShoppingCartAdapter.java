@@ -32,6 +32,15 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
         notifyItemInserted(items.size());
     }
 
+    public void addAll(List<String> newItems) {
+        int oldSz = items.size();
+        items.clear();
+        notifyItemRangeRemoved(0, oldSz);
+        items.addAll(newItems);
+        notifyItemRangeInserted(0, items.size());
+    }
+
+
     public void remove(String what) {
         for (int i = 0; i < items.size(); i++) {
             if (items.get(i).equals(what)) {
@@ -39,6 +48,13 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
                 notifyItemRemoved(i);
             }
         }
+    }
+
+    public ArrayList<String> getDataCopy(){
+        @SuppressWarnings("unchecked")
+        ArrayList<String> itemsCopy = (ArrayList<String>) items.clone();
+
+        return itemsCopy;
     }
 
     @Override

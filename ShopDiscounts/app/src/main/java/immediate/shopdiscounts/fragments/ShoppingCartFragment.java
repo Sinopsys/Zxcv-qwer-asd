@@ -13,10 +13,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import immediate.shopdiscounts.EmptyRecyclerView;
 import immediate.shopdiscounts.MainActivity;
 import immediate.shopdiscounts.R;
 import immediate.shopdiscounts.adapters.ItemListAdapter;
+import immediate.shopdiscounts.api.Item;
+
+import static immediate.shopdiscounts.MainActivity.SHOPPING_CART_ITEMS_KEY;
 
 public class ShoppingCartFragment extends Fragment {
 
@@ -27,6 +32,14 @@ public class ShoppingCartFragment extends Fragment {
 
     public ShoppingCartFragment(){
 
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if (((MainActivity)getActivity()).shoppingCartAdapter != null) {
+            outState.putParcelableArrayList(SHOPPING_CART_ITEMS_KEY, ((MainActivity) getActivity()).shoppingCartAdapter.getDataCopy());
+        }
     }
 
     public void updateTotal() {
@@ -43,6 +56,16 @@ public class ShoppingCartFragment extends Fragment {
 
     public static ShoppingCartFragment newInstance () {
         return new ShoppingCartFragment();
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        if (savedInstanceState != null && savedInstanceState.containsKey(SHOPPING_CART_ITEMS_KEY)) {
+            ArrayList<Item> restoredItems = savedInstanceState.getParcelableArrayList(SHOPPING_CART_ITEMS_KEY);
+            ((MainActivity) getActivity()).shoppingCartAdapter.addAll(restoredItems);
+        }
     }
 
     @Nullable
@@ -94,8 +117,6 @@ public class ShoppingCartFragment extends Fragment {
         TextView emptyLabel = (TextView) rootView.findViewById(R.id.emptyLabel);
 
         cart.setEmptyView(emptyLabel);
-
-
 
         updateTotal();
 
