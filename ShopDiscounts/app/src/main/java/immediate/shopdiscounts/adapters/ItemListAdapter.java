@@ -90,6 +90,19 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemVi
         dataCopy.add(newItem);
     }
 
+    public void add(Item item, int position)
+    {
+        items.add(position, item);
+        notifyItemInserted(position);
+    }
+
+    public Item getItemAtPosition(int position)
+    {
+        return items.get(position);
+    }
+
+
+
 
     public void addAll(List<Item> newItems) {
         int oldSz = items.size();
