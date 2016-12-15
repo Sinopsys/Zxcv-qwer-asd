@@ -30,6 +30,7 @@ public class Interactor extends AsyncTask<Void, Void, List<Item>> {
         ArrayList<Item> items = new ArrayList<>();
         try {
             URLConnection conn = new URL("http://shopdiscounts.herokuapp.com/all_dixy_items").openConnection();
+            conn.setUseCaches(false);
             BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 
             String s;
